@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+std::string trimWhiteSpace(std::string str);
+
 bool boolPrompt(std::string message);
 
 int intPrompt(std::string message);
@@ -20,6 +22,14 @@ int main()
 	return 0;
 }
 
+std::string trimWhiteSpace(std::string str)
+{
+	int i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		++i;
+	return i ? str.erase(0, i) : str;
+}
+
 bool boolPrompt(std::string message)
 {
 	bool validInput = false;
@@ -30,6 +40,7 @@ bool boolPrompt(std::string message)
 
 		std::string input = "";
 		std::getline(std::cin, input);
+		input = trimWhiteSpace(input);
 		initial = tolower(input[0]);
 
 		if (initial == 'y' || initial == 'n')
@@ -52,6 +63,7 @@ int intPrompt(std::string message)
 
 		std::string input = "";
 		std::getline(std::cin, input);
+		input = trimWhiteSpace(input);
 		char initial = input[0];
 
 		if (initial >= '0' && initial <= '9')
