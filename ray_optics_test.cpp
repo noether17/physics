@@ -1,19 +1,26 @@
 #include <iostream>
 #include <string>
 
-bool bPrompt(std::string message);
+bool boolPrompt(std::string message);
+
+int intPrompt(std::string message);
 
 int main()
 {
+	std::cout << "Welcome to the Ray Optics Test!\n";
+
 	do
 	{
-
-	} while (bPrompt("Would you like another problem set?"));
+		int numProblems = intPrompt("How many problems would"
+				" you like to generate?");
+		for (int i = 0; i < numProblems; i++)
+			std::cout << i << std::endl;
+	} while (boolPrompt("Would you like another problem set?"));
 
 	return 0;
 }
 
-bool bPrompt(std::string message)
+bool boolPrompt(std::string message)
 {
 	bool validInput = false;
 	char initial = 0;
@@ -33,4 +40,29 @@ bool bPrompt(std::string message)
 	}
 
 	return initial == 'y';
+}
+
+int intPrompt(std::string message)
+{
+	bool validInput = false;
+	int value = 0;
+	while(!validInput)
+	{
+		std::cout << message << " ";
+
+		std::string input = "";
+		std::getline(std::cin, input);
+		char initial = input[0];
+
+		if (initial >= '0' && initial <= '9')
+		{
+			validInput = true;
+			value = std::stoi(input);
+		}
+		else
+			std::cout << "Invalid input!"
+				" Type a non-negative integer.\n";
+	}
+
+	return value;
 }
