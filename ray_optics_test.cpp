@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
 
-std::string trimWhiteSpace(std::string str);
+std::string trim_white_space(std::string str);
 
-bool boolPrompt(std::string message);
+bool bool_prompt(std::string message);
 
-int intPrompt(std::string message);
+int int_prompt(std::string message);
+
+void set_params(bool& mirrors, bool& lenses, int& n_probs);
 
 int main()
 {
@@ -13,16 +15,19 @@ int main()
 
 	do
 	{
-		int numProblems = intPrompt("How many problems would"
-				" you like to generate?");
-		for (int i = 0; i < numProblems; i++)
-			std::cout << i << std::endl;
-	} while (boolPrompt("Would you like another problem set?"));
+		bool mirrors = false;
+		bool lenses = false;
+		int num_problems = 0;
+		set_params(mirrors, lenses, num_problems);
+		
+		for (int i = 0; i < num_problems; i++)
+			std::cout << i << mirrors << lenses << std::endl;
+	} while (bool_prompt("Would you like another problem set?"));
 
 	return 0;
 }
 
-std::string trimWhiteSpace(std::string str)
+std::string trim_white_space(std::string str)
 {
 	int i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
@@ -30,7 +35,7 @@ std::string trimWhiteSpace(std::string str)
 	return i ? str.erase(0, i) : str;
 }
 
-bool boolPrompt(std::string message)
+bool bool_prompt(std::string message)
 {
 	bool validInput = false;
 	char initial = 0;
@@ -40,7 +45,7 @@ bool boolPrompt(std::string message)
 
 		std::string input = "";
 		std::getline(std::cin, input);
-		input = trimWhiteSpace(input);
+		input = trim_white_space(input);
 		initial = tolower(input[0]);
 
 		if (initial == 'y' || initial == 'n')
@@ -53,7 +58,7 @@ bool boolPrompt(std::string message)
 	return initial == 'y';
 }
 
-int intPrompt(std::string message)
+int int_prompt(std::string message)
 {
 	bool validInput = false;
 	int value = 0;
@@ -63,7 +68,7 @@ int intPrompt(std::string message)
 
 		std::string input = "";
 		std::getline(std::cin, input);
-		input = trimWhiteSpace(input);
+		input = trim_white_space(input);
 		char initial = input[0];
 
 		if (initial >= '0' && initial <= '9')
@@ -77,4 +82,22 @@ int intPrompt(std::string message)
 	}
 
 	return value;
+}
+
+void set_params(bool& mirrors, bool& lenses, int& n_probs)
+{
+	mirrors = bool_prompt("Would you like to include"
+			" problems with mirrors?");
+	lenses = bool_prompt("Would you like to include"
+			" problems with lenses?");
+	if (!(mirrors || lenses))
+	{
+		std::cout << "Can't generate problem set!"
+			<< " Must select at least one option."
+			<< std::endl;
+		set_params(mirrors, lenses, n_probs);
+	}
+	else
+		n_probs = int_prompt("How many problems would"
+				" you like to generate?");
 }
