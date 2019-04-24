@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 std::string trim_white_space(std::string str);
 
@@ -8,6 +9,10 @@ bool bool_prompt(std::string message);
 int int_prompt(std::string message);
 
 void set_params(bool& mirrors, bool& lenses, int& n_probs);
+
+int random_digit();
+
+int generate_problem(bool mirrors, bool lenses);
 
 int main()
 {
@@ -21,7 +26,11 @@ int main()
 		set_params(mirrors, lenses, num_problems);
 		
 		for (int i = 0; i < num_problems; i++)
-			std::cout << i << mirrors << lenses << std::endl;
+			std::cout << i << '\t'
+				<< mirrors << '\t'
+				<< lenses << '\t' 
+				<< generate_problem(mirrors, lenses) 
+				<< std::endl;
 	} while (bool_prompt("Would you like another problem set?"));
 
 	return 0;
@@ -100,4 +109,14 @@ void set_params(bool& mirrors, bool& lenses, int& n_probs)
 	else
 		n_probs = int_prompt("How many problems would"
 				" you like to generate?");
+}
+
+int random_digit()
+{
+	return std::rand() % 10;
+}
+
+int generate_problem(bool mirrors, bool lenses)
+{
+	return random_digit();
 }
