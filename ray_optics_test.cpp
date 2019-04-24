@@ -10,7 +10,9 @@ int int_prompt(std::string message);
 
 void set_params(bool& mirrors, bool& lenses, int& n_probs);
 
-int random_digit();
+std::random_device rd;
+std::mt19937 generator(rd());
+std::uniform_int_distribution<> random_digit(0, 9);
 
 int generate_problem(bool mirrors, bool lenses);
 
@@ -111,15 +113,7 @@ void set_params(bool& mirrors, bool& lenses, int& n_probs)
 				" you like to generate?");
 }
 
-int random_digit()
-{
-	std::random_device rd;
-	std::mt19937 generator(rd());
-	std::uniform_int_distribution<> dis(0, 9);
-	return dis(generator);
-}
-
 int generate_problem(bool mirrors, bool lenses)
 {
-	return random_digit();
+	return random_digit(generator);
 }
