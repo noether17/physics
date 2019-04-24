@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
+#include <random>
 
 std::string trim_white_space(std::string str);
 
@@ -113,7 +113,10 @@ void set_params(bool& mirrors, bool& lenses, int& n_probs)
 
 int random_digit()
 {
-	return std::rand() % 10;
+	std::random_device rd;
+	std::mt19937 generator(rd());
+	std::uniform_int_distribution<> dis(0, 9);
+	return dis(generator);
 }
 
 int generate_problem(bool mirrors, bool lenses)
