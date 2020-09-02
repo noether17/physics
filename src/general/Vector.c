@@ -60,7 +60,9 @@ v_scl_inplace (Coord s, Vector *u)
 void
 v_norm_inplace (Coord length, Vector *v)
 {
-    v_scl_inplace (length ? length / v_mag (*v) : 0., v);
+    Coord _mag = v_mag (*v);
+    if (_mag) // do not rescale if magnitude is zero.
+        v_scl_inplace (length / _mag, v);
 }
 
 // ////////////////////////////////

@@ -55,7 +55,9 @@ __device__
 void
 cu_v_norm_inplace (Coord length, Vector *v)
 {
-    cu_v_scl_inplace (length ? length / cu_v_mag (*v) : 0., v);
+    Coord _mag = cu_v_mag (*v);
+    if (_mag) // do not rescale if magnitude is zero.
+        cu_v_scl_inplace (length / _mag, v);
 }
 
 // ////////////////////////////////
