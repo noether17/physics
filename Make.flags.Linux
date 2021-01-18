@@ -1,0 +1,6 @@
+SHELL = /bin/csh
+
+MAKE  = /usr/bin/make
+
+CC    = /usr/bin/gcc
+CFLAGS = -Wall -Werror -Og -g -std=c99
