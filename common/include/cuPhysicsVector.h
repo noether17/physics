@@ -1,7 +1,7 @@
-#ifndef CU_VECTOR_H
-#define CU_VECTOR_H
+#ifndef CU_PHYSICS_VECTOR_H
+#define CU_PHYSICS_VECTOR_H
 
-#include "Vector.h"
+#include "PhysicsVector.h"
 
 // //////////////////////
 // Inplace math functions

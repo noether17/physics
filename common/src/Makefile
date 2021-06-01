@@ -11,7 +11,7 @@ INCDIRS = \
 	-I$(PHYSICS_ROOT)/common/include
 
 SRC = \
-	Vector.c
+	PhysicsVector.c
 
 LINKLIBS  = -lm
 OUTPUTARC = libCommon.a

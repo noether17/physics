@@ -1,14 +1,4 @@
-#include <stdio.h>
-#include <math.h>
-#include "Vector.h"
-
-/* Print Vector in format "<v.x,v.y,v.z>\n"
- */
-void
-v_print (Vector v)
-{
-    printf ("<%f,%f,%f>\n", v.x, v.y, v.z);
-}
+#include "cuPhysicsVector.h"
 
 // //////////////////////
 // Inplace math functions
@@ -16,8 +6,9 @@ v_print (Vector v)
 
 /* Replaces contents of u with *u + v.
  */
+__device__
 void
-v_add_inplace (Vector *u, Vector v)
+cu_v_add_inplace (Vector *u, Vector v)
 {
     u->x += v.x;
     u->y += v.y;
@@ -26,8 +17,9 @@ v_add_inplace (Vector *u, Vector v)
 
 /* Replaces contents of u with *u - v.
  */
+__device__
 void
-v_sub_inplace (Vector *u, Vector v)
+cu_v_sub_inplace (Vector *u, Vector v)
 {
     u->x -= v.x;
     u->y -= v.y;
@@ -36,8 +28,9 @@ v_sub_inplace (Vector *u, Vector v)
 
 /* Replaces contents of u with -*u.
  */
+__device__
 void
-v_neg_inplace (Vector *u)
+cu_v_neg_inplace (Vector *u)
 {
     u->x = -u->x;
     u->y = -u->y;
@@ -46,8 +39,9 @@ v_neg_inplace (Vector *u)
 
 /* Replaces contents of u with s*(*u).
  */
+__device__
 void
-v_scl_inplace (double s, Vector *u)
+cu_v_scl_inplace (double s, Vector *u)
 {
     u->x *= s;
     u->y *= s;
@@ -57,12 +51,13 @@ v_scl_inplace (double s, Vector *u)
 /* Replaces contents of u with Vector in the same direction normalized
  *     to given length.
  */
+__device__
 void
-v_norm_inplace (double length, Vector *v)
+cu_v_norm_inplace (double length, Vector *v)
 {
-    double _mag = v_mag (*v);
+    double _mag = cu_v_mag (*v);
     if (_mag) // do not rescale if magnitude is zero.
-        v_scl_inplace (length / _mag, v);
+        cu_v_scl_inplace (length / _mag, v);
 }
 
 // ////////////////////////////////
@@ -71,54 +66,60 @@ v_norm_inplace (double length, Vector *v)
 
 /* Returns u + v.
  */
+__device__
 Vector
-v_add (Vector u, Vector v)
+cu_v_add (Vector u, Vector v)
 {
-    v_add_inplace (&u, v);
+    cu_v_add_inplace (&u, v);
     return u;
 }
 
 /* Returns u - v.
  */
+__device__
 Vector
-v_sub (Vector u, Vector v)
+cu_v_sub (Vector u, Vector v)
 {
-    v_sub_inplace (&u, v);
+    cu_v_sub_inplace (&u, v);
     return u;
 }
 
 /* Returns -u.
  */
+__device__
 Vector
-v_neg (Vector u)
+cu_v_neg (Vector u)
 {
-    v_neg_inplace (&u);
+    cu_v_neg_inplace (&u);
     return u;
 }
 
 /* Returns s*u.
  */
+__device__
 Vector
-v_scl (double s, Vector u)
+cu_v_scl (double s, Vector u)
 {
-    v_scl_inplace (s, &u);
+    cu_v_scl_inplace (s, &u);
     return u;
 }
 
 /* Returns Vector in the same direction as u normalized to given
  *     length.
  */
+__device__
 Vector
-v_norm (double length, Vector v)
+cu_v_norm (double length, Vector v)
 {
-    v_norm_inplace (length, &v);
+    cu_v_norm_inplace (length, &v);
     return v;
 }
 
 /* Returns vector product of u and v.
  */
+__device__
 Vector
-v_cross (Vector u, Vector v)
+cu_v_cross (Vector u, Vector v)
 {
     double w_x = u.y*v.z - u.z*v.y;
     double w_y = u.z*v.x - u.x*v.z;
@@ -133,8 +134,9 @@ v_cross (Vector u, Vector v)
 
 /* Returns scalar product of u and v.
  */
+__device__
 double
-v_dot (Vector u, Vector v)
+cu_v_dot (Vector u, Vector v)
 {
     double product = 0.;
     product += u.x*v.x;
@@ -145,8 +147,9 @@ v_dot (Vector u, Vector v)
 
 /* Returns magnitude of u.
  */
+__device__
 double
-v_mag (Vector u)
+cu_v_mag (Vector u)
 {
-    return sqrt (v_dot (u, u));
+    return sqrt (cu_v_dot (u, u));
 }
