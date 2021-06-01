@@ -29,14 +29,14 @@ cu_v_neg_inplace (Vector *u);
  */
 __device__
 void
-cu_v_scl_inplace (Coord s, Vector *u);
+cu_v_scl_inplace (double s, Vector *u);
 
 /* Replaces contents of u with Vector in the same direction normalized
  *     to given length.
  */
 __device__
 void
-cu_v_norm_inplace (Coord length, Vector *v);
+cu_v_norm_inplace (double length, Vector *v);
 
 // ////////////////////////////////
 // Math functions returning Vectors
@@ -64,14 +64,14 @@ cu_v_neg (Vector u);
  */
 __device__
 Vector
-cu_v_scl (Coord s, Vector u);
+cu_v_scl (double s, Vector u);
 
 /* Returns Vector in the same direction as u normalized to given
  *     length.
  */
 __device__
 Vector
-cu_v_norm (Coord length, Vector v);
+cu_v_norm (double length, Vector v);
 
 /* Returns vector product of u and v.
  */
@@ -86,13 +86,13 @@ cu_v_cross (Vector u, Vector v);
 /* Returns scalar product of u and v.
  */
 __device__
-Coord
+double
 cu_v_dot (Vector u, Vector v);
 
 /* Returns magnitude of u.
  */
 __device__
-Coord
+double
 cu_v_mag (Vector u);
 
 #endif

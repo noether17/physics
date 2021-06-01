@@ -47,7 +47,7 @@ v_neg_inplace (Vector *u)
 /* Replaces contents of u with s*(*u).
  */
 void
-v_scl_inplace (Coord s, Vector *u)
+v_scl_inplace (double s, Vector *u)
 {
     u->x *= s;
     u->y *= s;
@@ -58,9 +58,9 @@ v_scl_inplace (Coord s, Vector *u)
  *     to given length.
  */
 void
-v_norm_inplace (Coord length, Vector *v)
+v_norm_inplace (double length, Vector *v)
 {
-    Coord _mag = v_mag (*v);
+    double _mag = v_mag (*v);
     if (_mag) // do not rescale if magnitude is zero.
         v_scl_inplace (length / _mag, v);
 }
@@ -99,7 +99,7 @@ v_neg (Vector u)
 /* Returns s*u.
  */
 Vector
-v_scl (Coord s, Vector u)
+v_scl (double s, Vector u)
 {
     v_scl_inplace (s, &u);
     return u;
@@ -109,7 +109,7 @@ v_scl (Coord s, Vector u)
  *     length.
  */
 Vector
-v_norm (Coord length, Vector v)
+v_norm (double length, Vector v)
 {
     v_norm_inplace (length, &v);
     return v;
@@ -120,9 +120,9 @@ v_norm (Coord length, Vector v)
 Vector
 v_cross (Vector u, Vector v)
 {
-    Coord w_x = u.y*v.z - u.z*v.y;
-    Coord w_y = u.z*v.x - u.x*v.z;
-    Coord w_z = u.x*v.y - u.y*v.x;
+    double w_x = u.y*v.z - u.z*v.y;
+    double w_y = u.z*v.x - u.x*v.z;
+    double w_z = u.x*v.y - u.y*v.x;
     Vector w = { w_x, w_y, w_z };
     return w;
 }
@@ -133,10 +133,10 @@ v_cross (Vector u, Vector v)
 
 /* Returns scalar product of u and v.
  */
-Coord
+double
 v_dot (Vector u, Vector v)
 {
-    Coord product = 0.;
+    double product = 0.;
     product += u.x*v.x;
     product += u.y*v.y;
     product += u.z*v.z;
@@ -145,7 +145,7 @@ v_dot (Vector u, Vector v)
 
 /* Returns magnitude of u.
  */
-Coord
+double
 v_mag (Vector u)
 {
     return sqrt (v_dot (u, u));

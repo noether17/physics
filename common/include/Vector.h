@@ -1,11 +1,9 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-typedef double Coord; // for declaring coordinates
-
 struct Vector
 {
-    Coord x, y, z;
+    double x, y, z;
 };
 typedef struct Vector Vector;
 
@@ -36,13 +34,13 @@ v_neg_inplace (Vector *u);
 /* Replaces contents of u with s*(*u).
  */
 void
-v_scl_inplace (Coord s, Vector *u);
+v_scl_inplace (double s, Vector *u);
 
 /* Replaces contents of u with Vector in the same direction normalized
  *     to given length.
  */
 void
-v_norm_inplace (Coord length, Vector *v);
+v_norm_inplace (double length, Vector *v);
 
 // ////////////////////////////////
 // Math functions returning Vectors
@@ -66,13 +64,13 @@ v_neg (Vector u);
 /* Returns s*u.
  */
 Vector
-v_scl (Coord s, Vector u);
+v_scl (double s, Vector u);
 
 /* Returns Vector in the same direction as u normalized to given
  *     length.
  */
 Vector
-v_norm (Coord length, Vector v);
+v_norm (double length, Vector v);
 
 /* Returns vector product of u and v.
  */
@@ -85,12 +83,12 @@ v_cross (Vector u, Vector v);
 
 /* Returns scalar product of u and v.
  */
-Coord
+double
 v_dot (Vector u, Vector v);
 
 /* Returns magnitude of u.
  */
-Coord
+double
 v_mag (Vector u);
 
 #endif
